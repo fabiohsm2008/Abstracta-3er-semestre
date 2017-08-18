@@ -28,7 +28,12 @@ int euclides(int a, int b)
 }
 
 int main(int argc, char *argv[]) {
-	euclides(78,32);
+	int a,b;
+	cout << "Ingrese el primer numero: ";
+	cin >> a;
+	cout << "Ingrese el segundo numero: ";
+	cin >> b;
+	euclides(a,b);
 	return 0;
 }
 
