@@ -78,13 +78,17 @@ int inversa(int a, int m)
 int potencia_i(int a, int b, int modu)
 {
     int result = 1;
+    int i = 1;
+    int x = a;
     while(b != 0){
-
+        cout << x << "^" << i << " = " << a << " mod " << modu << endl;
         if(b&1){
             result = multipli(result , a,modu);
+            cout << "El resultado se guarda y ahora es: " << result << endl;
         }
         a = multipli(a, a, modu);
         b = b/2;
+        i = i*2;
     }
     return result;
 }
