@@ -102,27 +102,48 @@ void congruencia(int a, int b, int c){
     }
 }
 
-int res_chino(int *a, int *b, int tam){
-    return 0;
-}
-
-void prueba(){
-    int i = 0;
-    for(int j = 0; j < 256 ; j++){
-        cout << i << ": " << char(i) << endl;
-        i++;
+int res_chino(vector<int> valores, vector<int> modulos){
+    cout << endl;
+    int M = 1;
+    vector<int> sub_mods;
+    for(int i = 0; i < valores.size(); i++){
+        cout << "X = " << valores[i] << " mod " << modulos[i] << endl;
+        M = M * modulos[i];
+    }
+    for(int i = 0; i < valores.size(); i++){
+        sub_mods.push_back(M/modulos[i]);
+    }
+    cout << endl;
+    for(int i = 0; i < valores.size(); i++){
+        cout << sub_mods[i] << endl;
     }
 }
 
+
 int main(){
-    int a, b, c;
+    /*int a, b, c;
     cout << "Ingrese a: ";
     cin >> a;
     cout << "Ingrese b: ";
     cin >> b;
     cout << "Ingrese c: ";
     cin >> c;
-    congruencia(a,b,c);
+    congruencia(a,b,c);*/
 
+    vector<int> val;
+    vector<int> mods;
+    int tam;
+    int a;
+    int mod;
+    cout << "Ingrese la cantidad de congruencias lineales: ";
+    cin >> tam;
+    for(int i = 0; i < tam; i++){
+        cout << "Ingrese la ecuacion " << i+1 << ":";
+        cin >> a;
+        cin >> mod;
+        val.push_back(a);
+        mods.push_back(mod);
+    }
+    res_chino(val,mods);
     return 0;
 }
