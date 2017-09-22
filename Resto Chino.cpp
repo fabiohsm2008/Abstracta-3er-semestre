@@ -103,22 +103,68 @@ void congruencia(int a, int b, int c){
 }
 
 int res_chino(vector<int> valores, vector<int> modulos){
+
+    for(int i = 0; i < valores.size(); i++){
+        for(int j = i+1; j < valores.size(); j++){
+            if(euclides(modulos[i],modulos[j]) != 1){
+                cout << "Los modulos no son coprimos, no se puede realizar el algoritmo" << endl;
+                return -1;
+            }
+        }
+    }
     cout << endl;
+    int resultado = 0;
     int M = 1;
     vector<int> sub_mods;
+    vector<int> invers;
     for(int i = 0; i < valores.size(); i++){
         cout << "X = " << valores[i] << " mod " << modulos[i] << endl;
         M = M * modulos[i];
     }
+    cout << endl;
+    cout << "M: " << M << endl;
     for(int i = 0; i < valores.size(); i++){
         sub_mods.push_back(M/modulos[i]);
+        invers.push_back(inversa(M/modulos[i],modulos[i]));
     }
     cout << endl;
     for(int i = 0; i < valores.size(); i++){
-        cout << sub_mods[i] << endl;
+        cout << "M_" << i+1 << " = " << sub_mods[i] << endl;
     }
+    cout << endl;
+    for(int i = 0; i < valores.size(); i++){
+        cout << "Inversa M_" << i+1 << " = " << invers[i] << endl;
+    }
+    cout << endl;
+    cout << "X = (";
+    for(int i = 0; i < valores.size(); i++){
+        cout << valores[i] << " * " << sub_mods[i] << " * " << invers[i];
+        resultado = modulo(resultado + (modulo(multipli(multipli(valores[i],sub_mods[i],M),invers[i],M),M)),M);
+        if(i != (valores.size()-1))
+            cout << " + ";
+    }
+    cout << ") mod " << M << endl;
+    cout << endl;
+    return resultado;
 }
 
+int chino(vector<int> valores, vector<int> modulos){
+    int resultado = 0;
+    int M = 1;
+    vector<int> sub_mods;
+    vector<int> invers;
+    for(int i = 0; i < valores.size(); i++){
+        M = M * modulos[i];
+    }
+    for(int i = 0; i < valores.size(); i++){
+        sub_mods.push_back(M/modulos[i]);
+        invers.push_back(inversa(M/modulos[i],modulos[i]));
+    }
+    for(int i = 0; i < valores.size(); i++){
+        resultado = modulo(resultado + (modulo(multipli(multipli(valores[i],sub_mods[i],M),invers[i],M),M)),M);
+    }
+    return resultado;
+}
 
 int main(){
     /*int a, b, c;
@@ -144,6 +190,6 @@ int main(){
         val.push_back(a);
         mods.push_back(mod);
     }
-    res_chino(val,mods);
+    cout << "El resto chino es: " << res_chino(val,mods);
     return 0;
 }
