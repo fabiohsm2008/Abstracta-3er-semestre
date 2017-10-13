@@ -19,3 +19,23 @@
 1507921442 source:c:\users\alumno-d\desktop\afin\src\funciones.cpp
 	"Funciones.h"
 
+1507927688 source:c:\users\usuario\downloads\abstracta-3er-semestre-master\afin\main.cpp
+	<iostream>
+	<fstream>
+	"afin.h"
+
+1507933940 c:\users\usuario\downloads\abstracta-3er-semestre-master\afin\include\afin.h
+	<iostream>
+	<stdlib.h>
+	<string>
+	<time.h>
+	"Funciones.h"
+
+1507918186 c:\users\usuario\downloads\abstracta-3er-semestre-master\afin\include\funciones.h
+
+1507918186 source:c:\users\usuario\downloads\abstracta-3er-semestre-master\afin\src\funciones.cpp
+	"Funciones.h"
+
+1507934346 source:c:\users\usuario\downloads\abstracta-3er-semestre-master\afin\src\afin.cpp
+	"afin.h"
+
