@@ -1,0 +1,21 @@
+# depslib dependency file v1.0
+1507923467 source:c:\users\alumno-d\desktop\afin\main.cpp
+	<iostream>
+	<fstream>
+	"afin.h"
+
+1507924781 c:\users\alumno-d\desktop\afin\include\afin.h
+	<iostream>
+	<stdlib.h>
+	<string>
+	<time.h>
+	"Funciones.h"
+
+1507921441 c:\users\alumno-d\desktop\afin\include\funciones.h
+
+1507925324 source:c:\users\alumno-d\desktop\afin\src\afin.cpp
+	"afin.h"
+
+1507921442 source:c:\users\alumno-d\desktop\afin\src\funciones.cpp
+	"Funciones.h"
+
