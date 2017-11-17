@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1510948575 source:c:\users\alumno-d\desktop\rsa\main.cpp
+	<iostream>
+	"RSA.h"
+	<locale>
+	<stdlib.h>
+	<time.h>
+
+1510948183 source:c:\users\alumno-d\desktop\rsa\src\funciones.cpp
+	"Funciones.h"
+
+1510948175 c:\users\alumno-d\desktop\rsa\include\funciones.h
+	<vector>
+
+1510948661 c:\users\alumno-d\desktop\rsa\include\rsa.h
+	"Funciones.h"
+	<string>
+	<iostream>
+
+1510948370 source:c:\users\alumno-d\desktop\rsa\src\rsa.cpp
+	"RSA.h"
+	<time.h>
+	<stdlib.h>
+
