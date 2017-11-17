@@ -14,6 +14,7 @@ int matriz[4][4][2];
 int matriz2[4][4][2];
 int matriz3[4][4][2];
 int matriz4[4][4][2];
+int respuesta[4][16][2];
 
 void generar_sbox(){
     Sbox[0][0][0] = 6;
@@ -547,98 +548,119 @@ void generar_sbox(){
 
 void generar_rcon(){
     Rcon[0][0][0]=0;
-	Rcon[0][0][1]=2;
+	Rcon[0][0][1]=1;
 	Rcon[0][1][0]=0;
-	Rcon[0][1][1]=4;
+	Rcon[0][1][1]=2;
 	Rcon[0][2][0]=0;
-	Rcon[0][2][1]=8;
-	Rcon[0][3][0]=1;
-	Rcon[0][3][1]=0;
-	Rcon[0][4][0]=2;
+	Rcon[0][2][1]=4;
+	Rcon[0][3][0]=0;
+	Rcon[0][3][1]=8;
+	Rcon[0][4][0]=1;
 	Rcon[0][4][1]=0;
-	Rcon[0][5][0]=4;
+	Rcon[0][5][0]=2;
 	Rcon[0][5][1]=0;
-	Rcon[0][6][0]=8;
+	Rcon[0][6][0]=4;
 	Rcon[0][6][1]=0;
-	Rcon[0][7][0]=1;
-	Rcon[0][7][1]=b;
-	Rcon[0][8][0]=3;
-	Rcon[0][8][1]=6;
+	Rcon[0][7][0]=8;
+	Rcon[0][7][1]=0;
+	Rcon[0][8][0]=1;
+	Rcon[0][8][1]=b;
+	Rcon[0][9][1]=3;
+	Rcon[0][9][1]=6;
+}
 
-	Rcon[1][0][0]=0;
-	Rcon[1][0][1]=0;
-	Rcon[1][1][0]=0;
-	Rcon[1][1][1]=0;
-	Rcon[1][2][0]=0;
-	Rcon[1][2][1]=0;
-	Rcon[1][3][0]=0;
-	Rcon[1][3][1]=0;
-	Rcon[1][4][0]=0;
-	Rcon[1][4][1]=0;
-	Rcon[1][5][0]=0;
-	Rcon[1][5][1]=0;
-	Rcon[1][6][0]=0;
-	Rcon[1][6][1]=0;
-	Rcon[1][7][0]=0;
-	Rcon[1][7][1]=0;
-	Rcon[1][8][0]=0;
-	Rcon[1][8][1]=0;
+void generar_clave(){
+    matriz[0][0][0] = 2;
+    matriz[0][0][1] = b;
+    matriz[0][1][0] = 2;
+    matriz[0][1][1] = 8;
+    matriz[0][2][0] = a;
+    matriz[0][2][1] = b;
+    matriz[0][3][0] = 0;
+    matriz[0][3][1] = 9;
 
-	Rcon[2][0][0]=0;
-	Rcon[2][0][1]=0;
-	Rcon[2][1][0]=0;
-	Rcon[2][1][1]=0;
-	Rcon[2][2][0]=0;
-	Rcon[2][2][1]=0;
-	Rcon[2][3][0]=0;
-	Rcon[2][3][1]=0;
-	Rcon[2][4][0]=0;
-	Rcon[2][4][1]=0;
-	Rcon[2][5][0]=0;
-	Rcon[2][5][1]=0;
-	Rcon[2][6][0]=0;
-	Rcon[2][6][1]=0;
-	Rcon[2][7][0]=0;
-	Rcon[2][7][1]=0;
-	Rcon[2][8][0]=0;
-	Rcon[2][8][1]=0;
+    matriz[1][0][0] = 7;
+    matriz[1][0][1] = e;
+    matriz[1][1][0] = a;
+    matriz[1][1][1] = e;
+    matriz[1][2][0] = f;
+    matriz[1][2][1] = 7;
+    matriz[1][3][0] = c;
+    matriz[1][3][1] = f;
 
-	Rcon[3][0][0]=0;
-	Rcon[3][0][1]=0;
-	Rcon[3][1][0]=0;
-	Rcon[3][1][1]=0;
-	Rcon[3][2][0]=0;
-	Rcon[3][2][1]=0;
-	Rcon[3][3][0]=0;
-	Rcon[3][3][1]=0;
-	Rcon[3][4][0]=0;
-	Rcon[3][4][1]=0;
-	Rcon[3][5][0]=0;
-	Rcon[3][5][1]=0;
-	Rcon[3][6][0]=0;
-	Rcon[3][6][1]=0;
-	Rcon[3][7][0]=0;
-	Rcon[3][7][1]=0;
-	Rcon[3][8][0]=0;
-	Rcon[3][8][1]=0;
+    matriz[2][0][0] = 1;
+    matriz[2][0][1] = 5;
+    matriz[2][1][0] = d;
+    matriz[2][1][1] = 2;
+    matriz[2][2][0] = 1;
+    matriz[2][2][1] = 5;
+    matriz[2][3][0] = 4;
+    matriz[2][3][1] = f;
+
+    matriz[3][0][0] = 1;
+    matriz[3][0][1] = 6;
+    matriz[3][1][0] = a;
+    matriz[3][1][1] = 6;
+    matriz[3][2][0] = 8;
+    matriz[3][2][1] = 8;
+    matriz[3][3][0] = 3;
+    matriz[3][3][1] = c;
+}
+
+void mod_mat(int ma_1[4][4][2], int ma_2[4][4][2], int rcon){
+    /*ma_2[0][0][0] = ma_1[1][3][0];
+    ma_2[0][0][1] = ma_1[1][3][1];
+    ma_2[1][0][0] = ma_1[2][3][0];
+    ma_2[1][0][1] = ma_1[2][3][1];
+    ma_2[2][0][0] = ma_1[3][3][0];
+    ma_2[2][0][1] = ma_1[3][3][1];
+    ma_2[3][0][0] = ma_1[0][3][0];
+    ma_2[3][0][1] = ma_1[0][3][1];*/
+
+    ma_2[0][0][0] = Sbox[ma_1[1][3][0]][ma_1[1][3][1]][0];
+    ma_2[0][0][1] = Sbox[ma_1[1][3][0]][ma_1[1][3][1]][1];
+    ma_2[1][0][0] = Sbox[ma_1[2][3][0]][ma_1[2][3][1]][0];
+    ma_2[1][0][1] = Sbox[ma_1[2][3][0]][ma_1[2][3][1]][1];
+    ma_2[2][0][0] = Sbox[ma_1[3][3][0]][ma_1[3][3][1]][0];
+    ma_2[2][0][1] = Sbox[ma_1[3][3][0]][ma_1[3][3][1]][1];
+    ma_2[3][0][0] = Sbox[ma_1[0][3][0]][ma_1[0][3][1]][0];
+    ma_2[3][0][1] = Sbox[ma_1[0][3][0]][ma_1[0][3][1]][1];
+
+    for(int i = 0; i < 4; i++){
+        ma_2[i][0][0] = ma_1[i][0][0] ^ ma_2[i][0][0] ^ Rcon[i][rcon][0];
+        ma_2[i][0][1] = ma_1[i][0][1] ^ ma_2[i][0][1] ^ Rcon[i][rcon][1];
+    }
+    for(int i = 1; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            ma_2[j][i][0] = ma_1[j][i][0] ^ ma_2[j][i-1][0];
+            ma_2[j][i][1] = ma_1[j][i][1] ^ ma_2[j][i-1][1];
+        }
+    }
 }
 
 void permutar(){
-    int x,y;
+    generar_clave();
+    mod_mat(matriz,matriz2,0);
+    mod_mat(matriz2,matriz3,1);
+    mod_mat(matriz3,matriz4,2);
     for(int i = 0; i < 4; i++){
         for(int j = 0; j < 4; j++){
-            cout << "Ingrese valor primera casilla ";
-            cin >> x;
-            cin >> y;
-            matriz[i][j][0] = x;
-            matriz[i][j][1] = y;
-        }
-        cout << endl;
-    }
+            respuesta[i][j][0] = matriz[i][j][0];
+            respuesta[i][j][1] = matriz[i][j][1];
 
+            respuesta[i][j+4][0] = matriz2[i][j][0];
+            respuesta[i][j+4][1] = matriz2[i][j][1];
+
+            respuesta[i][j+8][0] = matriz3[i][j][0];
+            respuesta[i][j+8][1] = matriz3[i][j][1];
+
+            respuesta[i][j+12][0] = matriz4[i][j][0];
+            respuesta[i][j+12][1] = matriz4[i][j][1];
+        }
+    }
 }
 
-void imprimir(){
+void imprimir(int matriz[4][4][2]){
     int valores[] = {10,11,12,13,14,15};
     char letras[] = {'a','b','c','d','e','f'};
     for(int i = 0; i < 4; i++){
@@ -655,14 +677,41 @@ void imprimir(){
             else{
                 cout << matriz[i][j][1];
             }
+            cout << " ";
         }
         cout << endl;
     }
+    cout << endl;
+}
+
+void imprimir_rpta(){
+    int valores[] = {10,11,12,13,14,15};
+    char letras[] = {'a','b','c','d','e','f'};
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 16; j++){
+            if(respuesta[i][j][0] > 9){
+                cout << letras[respuesta[i][j][0] - 10];
+            }
+            else{
+                cout << respuesta[i][j][0];
+            }
+            if(respuesta[i][j][1] > 9){
+                cout << letras[respuesta[i][j][1] - 10];
+            }
+            else{
+                cout << respuesta[i][j][1];
+            }
+            cout << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
 
 int main(){
     generar_sbox();
+    generar_rcon();
     permutar();
-    imprimir();
+    imprimir_rpta();
     return 0;
 }
