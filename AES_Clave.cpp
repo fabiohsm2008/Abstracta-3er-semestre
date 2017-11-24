@@ -11,10 +11,6 @@ using namespace std;
 int Sbox[16][16][2];
 int Rcon[4][10][2];
 int matriz[4][4][2];
-int matriz2[4][4][2];
-int matriz3[4][4][2];
-int matriz4[4][4][2];
-int respuesta[4][16][2];
 
 void generar_sbox(){
     Sbox[0][0][0] = 6;
@@ -607,16 +603,20 @@ void generar_clave(){
     matriz[3][3][1] = c;
 }
 
-void mod_mat(int ma_1[4][4][2], int ma_2[4][4][2], int rcon){
-    /*ma_2[0][0][0] = ma_1[1][3][0];
-    ma_2[0][0][1] = ma_1[1][3][1];
-    ma_2[1][0][0] = ma_1[2][3][0];
-    ma_2[1][0][1] = ma_1[2][3][1];
-    ma_2[2][0][0] = ma_1[3][3][0];
-    ma_2[2][0][1] = ma_1[3][3][1];
-    ma_2[3][0][0] = ma_1[0][3][0];
-    ma_2[3][0][1] = ma_1[0][3][1];*/
+void imprimir(int matriz[4][4][2]);
 
+void cambiar_matriz(int ma_1[4][4][2], int ma_2[4][4][2]){
+    imprimir(ma_1);
+    for(int i = 0; i < 4; i++){
+        for(int j = 0; j < 4; j++){
+            ma_1[i][j][0] = ma_2[i][j][0];
+            ma_1[i][j][1] = ma_2[i][j][1];
+        }
+    }
+}
+
+void mod_mat(int ma_1[4][4][2],int rcon){
+    int ma_2[4][4][2];
     ma_2[0][0][0] = Sbox[ma_1[1][3][0]][ma_1[1][3][1]][0];
     ma_2[0][0][1] = Sbox[ma_1[1][3][0]][ma_1[1][3][1]][1];
     ma_2[1][0][0] = Sbox[ma_1[2][3][0]][ma_1[2][3][1]][0];
@@ -636,27 +636,13 @@ void mod_mat(int ma_1[4][4][2], int ma_2[4][4][2], int rcon){
             ma_2[j][i][1] = ma_1[j][i][1] ^ ma_2[j][i-1][1];
         }
     }
+    cambiar_matriz(ma_1,ma_2);
 }
 
 void permutar(){
     generar_clave();
-    mod_mat(matriz,matriz2,0);
-    mod_mat(matriz2,matriz3,1);
-    mod_mat(matriz3,matriz4,2);
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 4; j++){
-            respuesta[i][j][0] = matriz[i][j][0];
-            respuesta[i][j][1] = matriz[i][j][1];
-
-            respuesta[i][j+4][0] = matriz2[i][j][0];
-            respuesta[i][j+4][1] = matriz2[i][j][1];
-
-            respuesta[i][j+8][0] = matriz3[i][j][0];
-            respuesta[i][j+8][1] = matriz3[i][j][1];
-
-            respuesta[i][j+12][0] = matriz4[i][j][0];
-            respuesta[i][j+12][1] = matriz4[i][j][1];
-        }
+    for(int i = 0; i < 10; i++){
+        mod_mat(matriz, i);
     }
 }
 
@@ -684,34 +670,10 @@ void imprimir(int matriz[4][4][2]){
     cout << endl;
 }
 
-void imprimir_rpta(){
-    int valores[] = {10,11,12,13,14,15};
-    char letras[] = {'a','b','c','d','e','f'};
-    for(int i = 0; i < 4; i++){
-        for(int j = 0; j < 16; j++){
-            if(respuesta[i][j][0] > 9){
-                cout << letras[respuesta[i][j][0] - 10];
-            }
-            else{
-                cout << respuesta[i][j][0];
-            }
-            if(respuesta[i][j][1] > 9){
-                cout << letras[respuesta[i][j][1] - 10];
-            }
-            else{
-                cout << respuesta[i][j][1];
-            }
-            cout << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
 int main(){
     generar_sbox();
     generar_rcon();
     permutar();
-    imprimir_rpta();
+    imprimir(matriz);
     return 0;
 }
